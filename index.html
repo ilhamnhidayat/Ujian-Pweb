@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Data Akademik Universitas Mahaprata</title>
+
+</head>
+<body>
+
+  <Header>
+    <h2 class="mhs"><b><u>Daftar Mahasiswa</u></b></h2>
+
+  </Header>
+
+  <button style="background-color: beige; margin-right: auto;" onclick="addMahasiswa()">Tambah Mahasiswa</button>
+
+  <table id="mahasiswaTable">
+    <tr>
+      <th>NIM</th>
+      <th>Nama</th>
+      <th>Hobi</th>
+      <th>Modifikasi</th>
+    </tr>
+  </table>
+  
+  <br>
+<header>
+  <h2 class="dsn"><b><u>Daftar Dosen</u></b></h2>
+
+</header>
+
+
+  <button style="background-color: beige;" onclick="addDosen()">Tambah Dosen</button>
+
+  <table id="dosenTable">
+    <tr>
+      <th>NIP</th>
+      <th>Nama</th>
+      <th>Mata Kuliah</th>
+      <th>Modifikasi</th>
+    </tr>
+  </table>
+
+  <script>
+    // Contoh data mahasiswa
+    var mahasiswaData = [
+      { nim: '50421641', nama: 'Ilham Noor Hidayat', hobi: 'Main Game' },
+      { nim: '55527255', nama: 'Jeriko Sanchez', hobi: 'Melukis' },
+      { nim: '55267255', nama: 'Haekal Gerren Firmansyah', hobi: 'Baca Komik'}
+    ];
+
+    // Contoh data dosen
+    var dosenData = [
+      { nip: '11332931', nama: 'Ojahan Simbolon', mataKuliah: 'Matematika' },
+      { nip: '77711777', nama: 'Prof. Edward Newgate', mataKuliah: 'Geografi' },
+      { nip: '33328333', nama: 'Drs. Charlotte Linlin', mataKuliah: 'Psikologi Dasar'}
+    ];
+
+    // Inisialisasi tabel
+    updateMahasiswaTable();
+    updateDosenTable();
+
+    // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+      alert(message);
+    }
+    // Fungsi untuk menambahkan mahasiswa
+    function addMahasiswa() {
+      var nim = prompt('Masukkan NIM:');
+      var nama = prompt('Masukkan Nama:');
+      var hobi = prompt('Masukkan Hobi:');
+
+      if (nim && nama && hobi) {
+        mahasiswaData.push({ nim: nim, nama: nama, hobi: hobi });
+        updateMahasiswaTable();
+        showNotification('Data Mahasiswa berhasil ditambahkan');
+      } else {
+        alert('Harap isi NIM, Nama, dan Hobi');
+      }
+    }
+
+    // Fungsi untuk menghapus mahasiswa
+    function deleteMahasiswa(index) {
+      mahasiswaData.splice(index, 1);
+      updateMahasiswaTable();
+      showNotification('Data Mahasiswa berhasil dihapus');
+    }
+
+    // Fungsi untuk mengupdate mahasiswa
+    function updateMahasiswa(index) {
+      var newNim = prompt('Masukkan NIP baru:');
+      var newNama = prompt('Masukkan Nama baru:');
+      var newHobi = prompt('Masukkan Hobi baru:');
+
+      if (newNim && newNama && newHobi) {
+        mahasiswaData[index].nim = newNim;
+        mahasiswaData[index].nama = newNama;
+        mahasiswaData[index].hobi = newHobi;
+        updateMahasiswaTable();
+        showNotification('Data Mahasiswa berhasil diupdate');
+      } else {
+        alert('Harap isi NIM, Nama, dan Hobi baru');
+      }
+    }
+
+    // Fungsi untuk memperbarui tabel mahasiswa
+    function updateMahasiswaTable() {
+      var table = document.getElementById('mahasiswaTable');
+      table.innerHTML = '<tr><th>NIM</th><th>Nama</th><th>Hobi</th><th>Modifikasi</th></tr>';
+
+      for (var i = 0; i < mahasiswaData.length; i++) {
+        var row = table.insertRow(-1);
+        var cellNIM = row.insertCell(0);
+        var cellNama = row.insertCell(1);
+        var cellHobi = row.insertCell(2);
+        var cellModifikasi = row.insertCell(3);
+
+        cellNIM.innerHTML = mahasiswaData[i].nim;
+        cellNama.innerHTML = mahasiswaData[i].nama;
+        cellHobi.innerHTML = mahasiswaData[i].hobi;
+        cellModifikasi.innerHTML = '<button onclick="updateMahasiswa(' + i + ')">Update</button> ' +
+                             '<button style="background-color: red;" onclick="deleteMahasiswa(' + i + ')">Hapus</button>';
+      }
+    }
+
+    // Fungsi untuk menambahkan dosen
+    function addDosen() {
+      var nip = prompt('Masukkan NIP:');
+      var nama = prompt('Masukkan Nama:');
+      var mataKuliah = prompt('Masukkan Mata Kuliah:');
+
+      if (nip && nama && mataKuliah) {
+        dosenData.push({ nip: nip, nama: nama, mataKuliah: mataKuliah });
+        updateDosenTable();
+        showNotification('Data Dosen berhasil ditambahkan');
+      } else {
+        alert('Harap isi NIP, Nama, dan Mata Kuliah');
+      }
+    }
+
+    // Fungsi untuk menghapus dosen
+    function deleteDosen(index) {
+      dosenData.splice(index, 1);
+      updateDosenTable();
+      showNotification('Data Dosen berhasil dihapus');
+    }
+
+    // Fungsi untuk mengupdate dosen
+    function updateDosen(index) {
+      var newNip = prompt('Masukkan NIP baru');
+      var newNama = prompt('Masukkan Nama baru:');
+      var newMataKuliah = prompt('Masukkan Mata Kuliah baru:');
+
+      if (newNip && newNama && newMataKuliah) {
+        dosenData[index].nip = newNip;
+        dosenData[index].nama = newNama;
+        dosenData[index].mataKuliah = newMataKuliah;
+        updateDosenTable();
+        showNotification('Data Dosen berhasil diupdate');
+      } else {
+        alert('Harap isi NIP, Nama, dan Mata Kuliah baru');
+      }
+    }
+
+    // Fungsi untuk memperbarui tabel dosen
+    function updateDosenTable() {
+      var table = document.getElementById('dosenTable');
+      table.innerHTML = '<tr><th>NIP</th><th>Nama</th><th>Mata Kuliah</th><th>Modifikasi</th></tr>';
+
+      for (var i = 0; i < dosenData.length; i++) {
+        var row = table.insertRow(-1);
+        var cellNIP = row.insertCell(0);
+        var cellNama = row.insertCell(1);
+        var cellMataKuliah = row.insertCell(2);
+        var cellModifikasi = row.insertCell(3);
+
+        cellNIP.innerHTML = dosenData[i].nip;
+        cellNama.innerHTML = dosenData[i].nama;
+        cellMataKuliah.innerHTML = dosenData[i].mataKuliah;
+        cellModifikasi.innerHTML = '<button onclick="updateDosen(' + i + ')">Update</button> ' +
+                             '<button style="background-color: red;" onclick="deleteDosen(' + i + ')">Hapus</button>';
+      }
+    }
+  </script>
+
+</body>
+</html>
